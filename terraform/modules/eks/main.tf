@@ -14,7 +14,7 @@ resource "aws_eks_cluster" "main" {
     security_group_ids      = [aws_security_group.eks_cluster.id]
     endpoint_private_access = true
     endpoint_public_access  = true
-    public_access_cidrs     = ["0.0.0.0/0"]  # Restrinja para seu IP em produção!
+    public_access_cidrs     = ["45.183.119.105/32"]  # Restrinja para seu IP em produção!
   }
 
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]

@@ -22,7 +22,7 @@ variable "db_instance_class" {
 variable "db_engine_version" {
   description = "Versão do PostgreSQL"
   type        = string
-  default     = "15.4"
+  default     = "14.20"
 }
 
 variable "db_allocated_storage" {
@@ -89,4 +89,9 @@ variable "common_tags" {
   description = "Tags comuns"
   type        = map(string)
   default     = {}
+}
+
+variable "vpc_cidr" {
+  description = "CIDR da VPC"
+  type        = string
 }

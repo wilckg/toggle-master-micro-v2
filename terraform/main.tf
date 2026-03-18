@@ -17,6 +17,7 @@ module "databases" {
   source                = "./modules/databases"
   project_name          = var.project_name
   vpc_id                = module.networking.vpc_id
+  vpc_cidr              = module.networking.vpc_cidr_block
   private_subnet_ids    = module.networking.private_subnet_ids
   # eks_security_group_id = module.eks.cluster_security_group_id
   

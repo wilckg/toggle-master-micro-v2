@@ -39,7 +39,7 @@ variable "vpc_cidr" {
 variable "alert_email" {
   description = "Email para alertas de billing e notificações"
   type        = string
-  default     = "seu-email@exemplo.com"
+  default     = "wilck.oliveira16@gmail.com"
 }
 
 variable "ssh_key_name" {
