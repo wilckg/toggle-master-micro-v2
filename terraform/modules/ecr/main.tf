@@ -6,7 +6,7 @@ locals {
 resource "aws_ecr_repository" "services" {
   count = length(local.services)
   
-  name                 = "togglemaster-${local.services[count.index]}"
+  name                 = "${local.services[count.index]}-service"
   image_tag_mutability = "MUTABLE"
   
   image_scanning_configuration {
@@ -14,6 +14,6 @@ resource "aws_ecr_repository" "services" {
   }
   
   tags = {
-    Name = "togglemaster-${local.services[count.index]}"
+    Name = "${local.services[count.index]}-service"
   }
 }
