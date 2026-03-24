@@ -12,7 +12,7 @@ variable "project_name" {
   description = "Nome do projeto (usado em todos os recursos)"
   type        = string
   default     = "togglemaster"
-  
+
   validation {
     condition     = can(regex("^[a-z0-9-]+$", var.project_name))
     error_message = "O nome do projeto deve conter apenas letras minúsculas, números e hífens."
@@ -23,7 +23,7 @@ variable "environment" {
   description = "Ambiente (dev, staging, prod)"
   type        = string
   default     = "dev"
-  
+
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "O ambiente deve ser dev, staging ou prod."

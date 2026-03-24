@@ -14,13 +14,13 @@ module "networking" {
 }
 
 module "databases" {
-  source                = "./modules/databases"
-  project_name          = var.project_name
-  vpc_id                = module.networking.vpc_id
-  vpc_cidr              = module.networking.vpc_cidr_block
-  private_subnet_ids    = module.networking.private_subnet_ids
+  source             = "./modules/databases"
+  project_name       = var.project_name
+  vpc_id             = module.networking.vpc_id
+  vpc_cidr           = module.networking.vpc_cidr_block
+  private_subnet_ids = module.networking.private_subnet_ids
   # eks_security_group_id = module.eks.cluster_security_group_id
-  
+
   depends_on = [module.networking]
 }
 
@@ -36,14 +36,25 @@ module "eks" {
   depends_on = [module.networking, module.databases]
 }
 
-resource "aws_security_group_rule" "eks_to_rds" {
+# resource "aws_security_group_rule" "eks_to_rds" {
+#   type                     = "ingress"
+#   from_port                = 5432
+#   to_port                  = 5432
+#   protocol                 = "tcp"
+#   source_security_group_id = module.eks.nodes_security_group_id
+#   security_group_id        = module.databases.rds_security_group_id
+
+#   depends_on = [module.eks, module.databases]
+# }
+
+resource "aws_security_group_rule" "eks_nodes_to_rds" {
   type                     = "ingress"
   from_port                = 5432
   to_port                  = 5432
   protocol                 = "tcp"
-  source_security_group_id = module.eks.cluster_security_group_id
+  source_security_group_id = module.eks.nodes_security_group_id
   security_group_id        = module.databases.rds_security_group_id
-  
+
   depends_on = [module.eks, module.databases]
 }
 
@@ -58,7 +69,7 @@ module "ecr" {
 }
 
 module "billing" {
-  source      = "./modules/billing"
+  source       = "./modules/billing"
   project_name = var.project_name
-  alert_email = var.alert_email
+  alert_email  = var.alert_email
 }

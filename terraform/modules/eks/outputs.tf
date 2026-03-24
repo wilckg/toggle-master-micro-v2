@@ -65,6 +65,11 @@ output "node_group_role_arn" {
   value       = aws_iam_role.eks_node_group.arn
 }
 
+output "nodes_security_group_id" {
+  description = "ID do security group dos nodes do EKS"
+  value       = aws_security_group.eks_nodes.id
+}
+
 output "analytics_service_role_arn" {
   description = "ARN da role para o serviço analytics (DynamoDB access)"
   value       = aws_iam_role.analytics_service_role.arn
