@@ -1,28 +1,17 @@
-# ==========================================
-# GERAR SENHAS ALEATÓRIAS SEGURAS
-# ==========================================
-
 resource "random_password" "auth_db_password" {
   length           = 32
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  special          = false
 }
 
 resource "random_password" "flag_db_password" {
   length           = 32
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  special          = false
 }
 
 resource "random_password" "targeting_db_password" {
   length           = 32
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  special          = false
 }
-
-# ==========================================
-# AWS SECRETS MANAGER PARA CREDENCIAIS
-# ==========================================
 
 resource "aws_secretsmanager_secret" "auth_db" {
   name                    = "${var.project_name}/auth-db-credentials"
@@ -71,5 +60,3 @@ resource "aws_secretsmanager_secret_version" "targeting_db" {
     engine   = "postgres"
   })
 }
-
-# Repita para flag e targeting...

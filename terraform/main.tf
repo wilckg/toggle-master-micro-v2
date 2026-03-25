@@ -47,15 +47,15 @@ module "eks" {
 #   depends_on = [module.eks, module.databases]
 # }
 
-resource "aws_security_group_rule" "eks_nodes_to_rds" {
-  type                     = "ingress"
-  from_port                = 5432
-  to_port                  = 5432
-  protocol                 = "tcp"
-  source_security_group_id = module.eks.nodes_security_group_id
-  security_group_id        = module.databases.rds_security_group_id
+resource "aws_security_group_rule" "vpc_to_rds" {
+  type              = "ingress"
+  from_port         = 5432
+  to_port           = 5432
+  protocol          = "tcp"
+  cidr_blocks       = [module.networking.vpc_cidr_block]
+  security_group_id = module.databases.rds_security_group_id
 
-  depends_on = [module.eks, module.databases]
+  depends_on = [module.networking, module.databases]
 }
 
 module "sqs" {
